@@ -68,7 +68,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently \"npm run start\" \"gulp watch\""
+    "dev": "concurrently \"npm run start\" \"gulp watch\"",
+    "heroku-postbuild": "npm --legacy-peer-deps"
   },
   "eslintConfig": {
     "extends": [
