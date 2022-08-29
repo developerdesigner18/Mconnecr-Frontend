@@ -50,7 +50,7 @@ export const LoginForm = (props) => {
     // showLoading();
     // signIn(values);
     axios
-      .post("http://localhost:8000/auth/signin", values)
+      .post(`${process.env.REACT_APP_API_URL}/auth/signin`, values)
       .then((response) => {
         console.log(response.data.token);
         localStorage.setItem("auth_token", response.data.token);
