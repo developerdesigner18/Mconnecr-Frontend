@@ -34,9 +34,23 @@ const props = {
 const ProjectAdd = () => {
   let history = useHistory();
   const [dataList, setDataList] = useState("");
+  const [platform, setPlatform] = useState("");
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/platform/allPlatform`)
+      .then((res) => {
+        setPlatform(res.data.data);
 
+        console.log(res.data.data.clientName).catch((err) => {
+          console.log(err.res.data.message);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const object = {
-    clientName: undefined,
+    clientName_id: undefined,
     profileList: undefined,
     assigneeDeveloper: [],
     hireDate: undefined,
@@ -46,7 +60,7 @@ const ProjectAdd = () => {
     manual: false,
     contractType: false,
     importInfo: [],
-    platform: undefined,
+    // platform: undefined,
     hours: 0,
     cost: 0,
   };
@@ -70,7 +84,7 @@ const ProjectAdd = () => {
     }
   };
   const handleChangeClientName = (e) => {
-    setData({ ...data, clientName: e });
+    setData({ ...data, clientName_id: e });
   };
   const handleChangePlatform = (e) => {
     setData({ ...data, platform: e });
@@ -112,8 +126,9 @@ const ProjectAdd = () => {
     for (const key of Object.keys(data.assigneeDeveloper)) {
       formData.append("assigneeDeveloper", data.assigneeDeveloper[key]);
     }
-    formData.append("contractName", data.contractName);
+    formData.append("clientName_id", data.clientName_id);
     formData.append("contractType", data.contractType);
+    formData.append("contractName", data.contractName);
     formData.append("cost", data.cost);
     for (const key of Object.keys(data.discussedBy)) {
       formData.append("discussedBy", data.discussedBy[key]);
@@ -191,8 +206,17 @@ const ProjectAdd = () => {
                 name="platform"
                 onChange={(e) => handleChangePlatform(e)}
               >
-                <Option value="freelancer">freelancer</Option>
-                <Option value="upwork">upwork</Option>
+                {platform != "" &&
+                  platform.map((data) => {
+                    return (
+                      <Option
+                        value={data.name}
+                        style={{ textTransform: "capitalize" }}
+                      >
+                        {data.name}
+                      </Option>
+                    );
+                  })}
               </Select>
             </Col>
             <Col xs={24} sm={24} md={12}>
@@ -202,8 +226,9 @@ const ProjectAdd = () => {
                 className="w-100"
                 onChange={(e) => handleChangeProfileList(e)}
               >
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
+                <Option value="Ajaykumar">Ajaykumar</Option>
+                <Option value="Agency">Agency</Option>
+                <Option value="Rushil">Rushil</Option>
               </Select>
             </Col>
             <Col xs={24} sm={24} md={12}>
