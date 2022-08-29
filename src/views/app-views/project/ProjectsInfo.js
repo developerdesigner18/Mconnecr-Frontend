@@ -53,7 +53,7 @@ const ItemHeader = ({ clientName, category, platform }) => (
         className="text_cliName_pro"
         style={{ textTransform: "capitalize" }}
       >
-        {clientName} -{" "}
+        {clientName.clientName} -{" "}
       </span>
       <span className="text_cliPlat_pro">&nbsp;{platform}</span>
     </div>

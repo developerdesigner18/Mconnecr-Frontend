@@ -37,6 +37,7 @@ const ClientAdd = () => {
   const [selectedTimezone, setSelectedTimezone] = useState({});
   const [data, setData] = useState(object);
   const [emailError, setEmailError] = useState("");
+  const [err, setErr] = useState("");
   const [platform, setPlatform] = useState("");
   const [value, setValue] = useState("");
   const options = useMemo(() => countryList().getData(), []);
@@ -91,24 +92,35 @@ const ClientAdd = () => {
   };
   const onLogin = () => {
     console.log(data);
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/client/addClient`, data)
-      .then((response) => {
-        console.log(response.data);
-        toast(response.data.message);
-
-        setTimeout(() => {
-          history.push(`/app/clients/ClientsInfo`);
-        }, 3000);
-        // authenticated(response.data.token);
-      })
-      .catch((err) => {
-        console.log(err.response.data.message);
-        setData(err.response.data.message);
-        //  setTimeout(() => {
-        //    setData(undefined);
-        //  }, 3000);
-      });
+    if (
+      data.clientName != undefined &&
+      data.country != undefined &&
+      data.platform != undefined &&
+      data.countryTimeZone != undefined
+    ) {
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/client/addClient`, data)
+        .then((response) => {
+          console.log(response.data);
+          toast(response.data.message);
+          setTimeout(() => {
+            history.push(`/app/clients/ClientsInfo`);
+          }, 3000);
+          // authenticated(response.data.token);
+        })
+        .catch((err) => {
+          console.log(err.response.data.message);
+          setData(err.response.data.message);
+          //  setTimeout(() => {
+          //    setData(undefined);
+          //  }, 3000);
+        });
+    } else {
+      setErr("Please fill required fields");
+      setTimeout(() => {
+        setErr("");
+      }, 5000);
+    }
   };
   return (
     <Form
@@ -142,12 +154,25 @@ const ClientAdd = () => {
         </Flex>
         <div style={{ padding: "20px" }}>
           <Card title="Basic Info">
+            {err != undefined ? (
+              <div
+                style={{
+                  color: "red",
+                  marginBottom: " 15px",
+                  fontWeight: "500",
+                }}
+              >
+                {err}
+              </div>
+            ) : null}
             <Row gutter={16}>
               <Col xs={24} sm={24} md={12}>
                 <Form.Item
+                  className="ant-form-item-required"
                   name="clientName"
                   label="Client Name"
                   id="clientName"
+                  rules={[{ required: true }]}
                 ></Form.Item>
 
                 <Input
@@ -158,13 +183,18 @@ const ClientAdd = () => {
                 />
               </Col>
               <Col xs={24} sm={24} md={12}>
-                <Form.Item name="platform" label="Platform"></Form.Item>
+                <Form.Item
+                  name="platform"
+                  label="Platform"
+                  rules={[{ required: true }]}
+                ></Form.Item>
 
                 <Select
                   placeholder="Select Platform"
                   className="w-100"
                   showSearch
                   onChange={(e) => handleChangePlatform(e)}
+                  rules={[{ required: true }]}
                 >
                   {platform != "" &&
                     platform.map((data) => {
@@ -180,7 +210,13 @@ const ClientAdd = () => {
                 </Select>
               </Col>
               <Col xs={24} sm={24} md={12}>
-                <Form.Item name="country" label="Country"></Form.Item>
+                <Form.Item
+                  name="country"
+                  label="Country"
+                  rules={[{ required: true }]}
+                >
+                  {" "}
+                </Form.Item>
                 {/* <Input
                   className="w-100"
                   name="country"
@@ -203,6 +239,7 @@ const ClientAdd = () => {
                 <Form.Item
                   name="countryTimeZone"
                   label="Country Time Zone"
+                  rules={[{ required: true }]}
                 ></Form.Item>
                 {/* <Input
                   className="w-100"
