@@ -130,7 +130,7 @@ const DevelopersAdd = () => {
       formData.append("adharImgB", data.adharImgB);
       formData.append("panImg", data.panImg);
       axios
-        .post("http://localhost:8000/developer/addDev", formData)
+        .post(`${process.env.REACT_APP_API_URL}/developer/addDev`, formData)
         .then((response) => {
           console.log(response.data);
           toast(response.data.message);

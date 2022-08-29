@@ -43,7 +43,7 @@ const ClientAdd = () => {
 
   useEffect(() => {
     axios
-      .get(` http://localhost:8000/platform/allPlatform`)
+      .get(`${process.env.REACT_APP_API_URL}/platform/allPlatform`)
       .then((res) => {
         setPlatform(res.data.data);
 
@@ -92,7 +92,7 @@ const ClientAdd = () => {
   const onLogin = () => {
     console.log(data);
     axios
-      .post(" http://localhost:8000/client/addClient", data)
+      .post(`${process.env.REACT_APP_API_URL}/client/addClient`, data)
       .then((response) => {
         console.log(response.data);
         toast(response.data.message);

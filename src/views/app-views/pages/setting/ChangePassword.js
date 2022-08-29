@@ -32,9 +32,9 @@ export class ChangePassword extends Component {
       };
       axios
         .post(
-          `http://localhost:8000/api/changePwd/${localStorage.getItem(
-            "user_id"
-          )}`,
+          `${
+            process.env.REACT_APP_API_URL
+          }/api/changePwd/${localStorage.getItem("user_id")}`,
           objectData,
           {
             headers: {

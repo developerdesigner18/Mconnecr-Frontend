@@ -28,7 +28,7 @@ const ResetPwd = () => {
     // showLoading();
     // signIn(values);
     axios
-      .post(`http://localhost:8000/auth/resetPassword/${id}`, values)
+      .post(`${process.env.REACT_APP_API_URL}/auth/resetPassword/${id}`, values)
       .then((response) => {
         console.log(response.data);
         toast(response.data.success);

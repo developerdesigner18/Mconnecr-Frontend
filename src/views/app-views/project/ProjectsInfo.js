@@ -234,7 +234,7 @@ const ProjectsInfo = () => {
   const [list, setList] = useState("");
   useEffect(() => {
     axios
-      .get(" http://localhost:8000/project/allProjects", {
+      .get(`${process.env.REACT_APP_API_URL}/project/allProjects`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
         },

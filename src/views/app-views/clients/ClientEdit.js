@@ -54,7 +54,7 @@ const ClientEdit = () => {
   };
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/client/showSingleClient/${id}`, {
+      .get(`${process.env.REACT_APP_API_URL}/client/showSingleClient/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
         },
@@ -112,11 +112,15 @@ const ClientEdit = () => {
         data.workspace != undefined ? data.workspace : dataList?.workspace,
     };
     axios
-      .post(`http://localhost:8000/client/editClient/${id}`, objectLogin, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-        },
-      })
+      .post(
+        `${process.env.REACT_APP_API_URL}/client/editClient/${id}`,
+        objectLogin,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        }
+      )
       .then((response) => {
         console.log(response.data);
         toast(response.data.message);

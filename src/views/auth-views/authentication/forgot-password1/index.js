@@ -22,7 +22,7 @@ const ForgotPwd = () => {
     // showLoading();
     // signIn(values);
     axios
-      .post("http://localhost:8000/auth/forgotpassword", values)
+      .post(`${process.env.REACT_APP_API_URL}/auth/forgotpassword`, values)
       .then((response) => {
         console.log(response.data);
         toast(response.data.message);

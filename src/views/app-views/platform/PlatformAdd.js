@@ -29,7 +29,7 @@ const DevelopersAdd = () => {
   };
   const onLogin = () => {
     axios
-      .post(" http://localhost:8000/platform/addPlatform", data)
+      .post(`${process.env.REACT_APP_API_URL}/addPlatform`, data)
       .then((response) => {
         console.log(response.data);
         toast(response.data.message);

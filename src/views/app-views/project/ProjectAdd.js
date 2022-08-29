@@ -86,7 +86,7 @@ const ProjectAdd = () => {
   };
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/client/allClientsName`, {
+      .get(`${process.env.REACT_APP_API_URL}/client/allClientsName`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
         },
@@ -125,7 +125,7 @@ const ProjectAdd = () => {
     formData.append("profileList", data.profileList);
     formData.append("webLink", data.webLink);
     axios
-      .post("http://localhost:8000/project/addProject", formData)
+      .post(`${process.env.REACT_APP_API_URL}/project/addProject`, formData)
       .then((response) => {
         console.log(response.data);
         toast(response.data.message);

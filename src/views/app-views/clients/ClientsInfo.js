@@ -57,7 +57,7 @@ const ClientsInfo = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/client/allClients", {
+      .get(`${process.env.REACT_APP_API_URL}/client/allClients`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
         },
@@ -74,7 +74,7 @@ const ClientsInfo = () => {
         console.log(err);
       });
     axios
-      .get(` http://localhost:8000/platform/allPlatform`)
+      .get(`${process.env.REACT_APP_API_URL}/platform/allPlatform`)
       .then((res) => {
         setPlatform(res.data.data);
 
@@ -142,7 +142,9 @@ const ClientsInfo = () => {
         if (selectedRows.length > 0) {
           selectedRowKeys.map((id) => {
             axios
-              .delete(`http://localhost:8000/client/deleteClient/${id}`)
+              .delete(
+                `${process.env.REACT_APP_API_URL}/client/deleteClient/${id}`
+              )
               .then((res) => {
                 console.log(res.data);
                 window.location.reload();
@@ -160,7 +162,9 @@ const ClientsInfo = () => {
           // } else if (selectedRows.length > 0) {
         } else {
           axios
-            .delete(`http://localhost:8000/client/deleteClient/${id}`)
+            .delete(
+              `${process.env.REACT_APP_API_URL}/client/deleteClient/${id}`
+            )
             .then((res) => {
               console.log(res.data);
               window.location.reload();

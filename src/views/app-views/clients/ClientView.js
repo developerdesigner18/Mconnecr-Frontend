@@ -20,7 +20,7 @@ const ClientView = () => {
   };
   useEffect(() => {
     axios
-      .get(` http://localhost:8000/client/showSingleClient/${id}`, {
+      .get(` ${process.env.REACT_APP_API_URL}/client/showSingleClient/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
         },
