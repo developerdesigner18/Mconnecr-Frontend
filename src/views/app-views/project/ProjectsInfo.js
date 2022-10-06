@@ -125,7 +125,7 @@ const ItemMember = ({ member }) => (
         <Tooltip title={elm.name} key={`avatar-${i}`}>
           <Avatar
             size="small"
-            className={`ml-1 cursor-pointer ant-avatar-${elm.avatarColor}`}
+            className={`ml-1 cursor-pointer ant-avatar-blue`}
             src={elm.img}
           >
             {elm.img ? (
@@ -206,7 +206,7 @@ const GridItem = ({ data, removeId }) => (
     </Flex>
     <div className="mt-2">
       <ItemInfo
-        name={data.discussedBy[0]}
+        name={data.discussedBy[0].name}
         date={data.hireDate}
         // statusColor={data.statusColor}
         dayleft="21"
@@ -216,7 +216,7 @@ const GridItem = ({ data, removeId }) => (
       <ItemProgress progression="90" />
     </div>
     <div className="mt-2">
-      <ItemMember member={members} />
+      <ItemMember member={data.assigneeDeveloper} />
     </div>
   </Card>
 );
